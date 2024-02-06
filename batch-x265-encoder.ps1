@@ -113,8 +113,10 @@ $files | ForEach-Object {
                 # $width = $info[0]
                 # $height = $info[1]
                 # $format = $info[2]
-                
-                If ($format -ne 'HEVC'){
+
+		# Initial version bases the decision to proceed on pre-existing video codec not being x265. New version is based on bitrate, so that it re-encodes high bitrate x265 files as well
+                # If ($format -ne 'HEVC'){
+		If ($bitrate -gt '2000'){                
                     If ($width -gt $height){
                         Switch ($width) {
                             "4096"    								{$newres = '-filter:v "scale=width=1920:height=-2"';$resize = '-r'}
